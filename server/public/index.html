@@ -7,8 +7,16 @@
 </head>
 <body>
   <h1>Realtime Example for IoT</h1>
+  <input type="color">
   <script>
     var socket = io.connect()
+    var colorInput = document.querySelector('input[type="color"]')
+
+    colorInput.onchange = function () {
+      var color = this.value
+
+      socket.emit('color', color)
+    }
   </script>
 </body>
 </html>

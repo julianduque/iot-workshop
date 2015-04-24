@@ -17,6 +17,10 @@ var io = socketio(server)
 
 io.on('connection', function (socket) {
   console.log('Client connected ' + socket.id)
+
+  socket.on('color', function (color) {
+    console.log('Received ' + color)
+  })
 })
 
 server.listen(port, function () {
