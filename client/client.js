@@ -1,9 +1,14 @@
 var mqtt = require('mqtt')
+var five = require('johnny-five')
 
-var client = mqtt.connect()
+var board = new five.Board()
 
-client.subscribe('colors')
+board.on('ready', function () {
+  var client = mqtt.connect()
+  client.subscribe('colors')
 
-client.on('message', function (topic, payload) {
-  console.log('Received ' + payload + ' sent to ' + topic)
+  client.on('message', function (topic, payload) {
+    console.log('Received ' + payload + ' sent to ' + topic)
+  })
+
 })
