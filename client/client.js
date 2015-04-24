@@ -9,9 +9,9 @@ board.on('ready', function () {
 
   var led = new five.Led.RGB({
     pins: {
-      red: 'A6',
-      green: 'A9',
-      blue: 'A10'
+      red: 6,
+      green: 9,
+      blue: 10
     }
   })
 
