@@ -42,6 +42,18 @@ var mqttServer = net.createServer(function (stream) {
     client.pingresp()
   })
 
+  client.on('subscribe', function (packet) {
+    var granted = []
+
+    for (var i = 0; i < packet.subscriptions.length; i++) {
+      var subscription = packet.subscriptions[i]
+      console.log('MQTT Client ' + client.id + ' subscribed to ' + subscription.topic)
+      granted.push(subscription.qos)
+    }
+
+    client.suback({ granted: granted, messageId: packet.messageId })
+  })
+
   client.on('close', function (packet) {
     delete clients[client.id]
     console.log('MQTT Client closed connection ' + client.id)
