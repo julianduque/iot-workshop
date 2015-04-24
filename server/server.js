@@ -1,11 +1,15 @@
-var net      = require('net')
-var http     = require('http')
-var path     = require('path')
-var express  = require('express')
-var socketio = require('socket.io')
-var mqttCon  = require('mqtt-connection')
+var net          = require('net')
+var http         = require('http')
+var path         = require('path')
+var express      = require('express')
+var socketio     = require('socket.io')
+var mqttCon      = require('mqtt-connection')
+var EventEmitter = require('events').EventEmitter
 
 var port = process.env.PORT || 8080
+
+// events
+var events = new EventEmitter()
 
 // setup express app
 var app = express()
@@ -22,6 +26,7 @@ io.on('connection', function (socket) {
 
   socket.on('color', function (color) {
     console.log('Received ' + color)
+    events.emit('mqtt:broadcast', 'colors', color)
   })
 })
 
@@ -69,6 +74,14 @@ var mqttServer = net.createServer(function (stream) {
 
     delete clients[client.id]
     client.stream.end()
+  })
+
+  events.on('mqtt:broadcast', function (topic, payload) {
+    var clientIds = Object.keys(clients)
+
+    clientIds.forEach(function (id) {
+      clients[id].publish({ topic: topic, payload: payload })
+    })
   })
 
 })
