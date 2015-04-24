@@ -1,0 +1,11 @@
+{
+  "name": "iot-client",
+  "version": "1.0.0",
+  "description": "Node IoT Client",
+  "main": "client.js",
+  "author": "Julian Duque <julianduquej@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "mqtt": "^1.1.3"
+  }
+}
