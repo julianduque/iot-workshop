@@ -1,0 +1,11 @@
+{
+  "name": "iot-server",
+  "version": "1.0.0",
+  "description": "Node IoT Server",
+  "main": "server.js",
+  "author": "Julian Duque <julianduquej@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.12.3"
+  }
+}
